@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CategoryStoreRequest;
-use App\Http\Requests\CategoryUpdateRequest;
+use App\Models\User;
 use App\Models\Category;
 use App\Http\Resources\CategoryResource;
+use App\Http\Requests\CategoryStoreRequest;
+use App\Http\Requests\CategoryUpdateRequest;
 
 class CategoryController extends Controller
 {
@@ -24,7 +25,6 @@ class CategoryController extends Controller
     public function store(CategoryStoreRequest $request)
     {
         $imagePath = null;
-
         if ($request->hasFile('image')) {
             $imagePath = $this->uploadImage($request->file('image'), 'categories');
         }

@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Phone extends Model
 {
     protected $fillable = [
-        "name","model","image","user_id","category_id","category_id",'slug','price',
-    ];
+        "name","model","user_id","category_id",'slug','price',    ];
     public function user(){
         return $this->belongsTo(User::class);
     }
@@ -18,5 +17,9 @@ class Phone extends Model
     }
     public function comments(){
         return $this->hasMany(Comment::class);
+    }
+    public function images()
+    {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }

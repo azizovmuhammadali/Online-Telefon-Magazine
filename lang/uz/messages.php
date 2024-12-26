@@ -12,4 +12,6 @@ return [
     'category_show'=> 'Siz izlagan categoriya',
     'category_updated' => 'Categoriya yangilandi',
     'category_deleted'=> 'Categoriya ochirildi',
+    'error' => 'Siz izlagan narsa mavjud emas',
+    'notfound'=> 'topilmadi',
 ];

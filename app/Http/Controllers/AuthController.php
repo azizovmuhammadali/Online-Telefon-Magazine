@@ -18,10 +18,18 @@ class AuthController extends Controller
       $user->email = $request->email;
       $user->verification_token = uniqid();
       $user->password = bcrypt($request->password);
+      $imagePath = null;
       $user->phone_number = $request->phone_number;
       $user->save();
+      
+      if ($request->hasFile('image')) {
+          $imagePath = $this->uploadImage($request->file('image'), 'user');
+      }
+      $user->images()->create([
+        'image'=> $imagePath,
+      ]); 
       SendEmail::dispatch($user);
-      return $this->success([new UserResource($user)],__("messages.register"));
+      return $this->success(new UserResource($user->load('images')),__("messages.register"));
     }
     public function emailVerify(Request $request)
     {
@@ -42,9 +50,9 @@ class AuthController extends Controller
     $user->tokens()->delete();
     $token = $user->createToken('auth_login')->plainTextToken;
     return $this->success([
-     'user' =>   new UserResource($user),
-     'token' => $token
-    ],__('messages.login'));
+     'user' =>   new UserResource($user->load('images')),
+     'token' => $token,
+   ] ,__('messages.login'));
 }
    }
    public function logout(Request $request){
@@ -53,7 +61,7 @@ class AuthController extends Controller
    }
    public function findUser(Request $request){
     if($request->user()  !== null){
-    return $this->success([new UserResource( $request->user())],__('messages.userFound'));
+    return $this->success([new UserResource( $request->user()->load('images'))],__('messages.userFound'));
     }
     else {
         return $this->error(__('messages.userNotFound'));

@@ -14,4 +14,12 @@ return [
     'category_deleted'=> 'Categoriya ochirildi',
     'error' => 'Siz izlagan narsa mavjud emas',
     'notfound'=> 'topilmadi',
+    'commented'=> 'Comment yozildi',
+     'comment_notfound'=> 'Siz ochira olmaysz',
+     'comment_deleted'=> 'Comment ochirildi',
+     'phone_all'=> 'Hamma telefonlar',
+     'phone_created'=> 'Telefoningizni dasturga qoshdingz',
+     'phone_show'=> 'Siz izlagan telefon',
+     'phone_updated'=> 'Telefon malumotlari muvaffaqiyatli ozgartirildi',
+     'phone_deleted'=> 'Telefoningizni dasturdan ochirdingz',
 ];

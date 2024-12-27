@@ -1,9 +1,7 @@
 <?php
 
 namespace App\Models;
-
 use App\Observers\CategoryObserver;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 #[ObservedBy(CategoryObserver::class)]

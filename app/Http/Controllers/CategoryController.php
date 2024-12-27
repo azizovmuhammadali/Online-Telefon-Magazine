@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::with('images','phones.images')->paginate(10);
         return $this->success(CategoryResource::collection($categories), __("messages.category_all"));
     }
 
@@ -24,15 +24,17 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
+        $category = Category::create([
+            "title" => $request->title,
+        ]);
         $imagePath = null;
         if ($request->hasFile('image')) {
             $imagePath = $this->uploadImage($request->file('image'), 'categories');
         }
-        $category = Category::create([
-            "title" => $request->title,
-            'image' => $imagePath,
-        ]);
-        return $this->success([new CategoryResource($category)], __('messages.category_created'));
+        $category->images()->create([
+            'image'=> $imagePath,
+          ]); 
+        return $this->success([new CategoryResource($category->load('images'))], __('messages.category_created'));
     }
 
     /**
@@ -41,7 +43,7 @@ class CategoryController extends Controller
     public function show(string $id)
     {
         $category = Category::findOrFail($id);
-        return $this->success([new CategoryResource($category)], __('messages.category_show'));
+        return $this->success([new CategoryResource($category->load('images','phones.images'))], __('messages.category_show'));
     }
 
     /**
@@ -60,7 +62,7 @@ class CategoryController extends Controller
         $category->save();
 
         return $this->success(
-            [new CategoryResource($category)],
+            [new CategoryResource($category->load('images'))],
             __('messages.category_updated')
         );
     }

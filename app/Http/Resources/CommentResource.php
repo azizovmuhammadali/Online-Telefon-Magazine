@@ -16,7 +16,7 @@ class CommentResource extends JsonResource
     {
         return [
             'comment' => $this->comment,
-            'user' => UserResource::collection($this->whenLoaded('user')),
+            'user' => new UserResource($this->whenLoaded('user')),
         ];
     }
 }

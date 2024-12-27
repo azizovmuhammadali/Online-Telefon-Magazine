@@ -21,5 +21,6 @@ return [
      'phone_created'=> 'Telefoningizni dasturga qoshdingz',
      'phone_show'=> 'Siz izlagan telefon',
      'phone_updated'=> 'Telefon malumotlari muvaffaqiyatli ozgartirildi',
+     'phone_notfound'=> 'Teleefon malumotlarni yangilash huquqiqa ega emassz',
      'phone_deleted'=> 'Telefoningizni dasturdan ochirdingz',
 ];

@@ -19,6 +19,7 @@ class UserResource extends JsonResource
             "email"=> $this->email,
             "phone_number"=> $this->phone_number,
             'image' =>  ImageResource::collection($this->whenLoaded('images')),
+             'phones' => PhoneResource::collection($this->whenLoaded('phones')),
         ];
     }
 }

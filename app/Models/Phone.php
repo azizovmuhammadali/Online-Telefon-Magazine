@@ -1,14 +1,14 @@
 <?php
 
 namespace App\Models;
-
+use App\Observers\PhoneObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Model;
-#[ObservedBy(Phone::class)]
+#[ObservedBy(PhoneObserver::class)]
 class Phone extends Model
 {
     protected $fillable = [
-        "name","model","user_id","category_id",'slug','price',    ];
+        "name","model","user_id","category_id",'slug','price','description'];
     public function user(){
         return $this->belongsTo(User::class);
     }

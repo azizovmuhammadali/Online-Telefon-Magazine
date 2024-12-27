@@ -61,7 +61,7 @@ class AuthController extends Controller
    }
    public function findUser(Request $request){
     if($request->user()  !== null){
-    return $this->success([new UserResource( $request->user()->load('images'))],__('messages.userFound'));
+    return $this->success([new UserResource( $request->user()->load('images','phones.images'))],__('messages.userFound'));
     }
     else {
         return $this->error(__('messages.userNotFound'));

@@ -58,6 +58,10 @@ class PhoneController extends Controller
     public function update(PhoneUpdateRequestRequest $request, string $id)
     {
         $phone = Phone::findOrFail($id);
+        $phone = Phone::findOrFail($id);
+        if(Auth::id() !== $phone->user_id){
+            return $this->error(__('messages.phone_notfound'));
+        }
         $phone->name = $request->name;
         $phone->model = $request->model;
         $phone->price = $request->price;

@@ -5,20 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CommentStoreRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
-use App\Models\Phone;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
     public function commentstore(CommentStoreRequest $request){
         $comment = new Comment();
-        $comment->create([
-            'user_id' => Auth::id(),
-            'phone_id' => $request->phone_id,
-            'comment' => $request->comment,
-        ]);
-        return $this->success(new CommentResource($comment),__('messages.commented'));
+        $comment->comment = $request->comment;
+        $comment->user_id = Auth::id();
+        $comment->phone_id = $request->phone_id;
+        $comment->save();
+        return $this->success(new CommentResource($comment->load('user.images')),__('messages.commented'));
     }
     public function destroy(string $id)
     {

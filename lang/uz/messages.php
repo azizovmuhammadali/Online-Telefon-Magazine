@@ -23,4 +23,6 @@ return [
      'phone_updated'=> 'Telefon malumotlari muvaffaqiyatli ozgartirildi',
      'phone_notfound'=> 'Teleefon malumotlarni yangilash huquqiqa ega emassz',
      'phone_deleted'=> 'Telefoningizni dasturdan ochirdingz',
+     'phone_search'=> 'Siz qidirgan telefonlar',
+     'admin'=> 'Kechrasz siz bu sahifani boshqarish huquqiga ega emassiz',
 ];

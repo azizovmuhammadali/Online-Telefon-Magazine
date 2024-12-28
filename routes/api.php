@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\FindController;
 use App\Http\Controllers\PhoneController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,5 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('phones',PhoneController::class)->middleware('language');
     Route::post('comments',[CommentController::class,'commentstore'])->middleware('language');
     Route::delete('comments/{id}',[CommentController::class,'commentdestroy'])->middleware('language');
+    Route::get('search',[FindController::class,'search'])->middleware('language');
 });
 Route::apiResource('categories', CategoryController::class)->middleware('language');

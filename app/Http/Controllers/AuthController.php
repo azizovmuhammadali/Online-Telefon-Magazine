@@ -18,6 +18,7 @@ class AuthController extends Controller
       $user->email = $request->email;
       $user->verification_token = uniqid();
       $user->password = bcrypt($request->password);
+      $user->role = $request->role;
       $imagePath = null;
       $user->phone_number = $request->phone_number;
       $user->save();

@@ -24,6 +24,9 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
+        if (!auth()->check() || auth()->user()->status !== 'admin') {
+            return $this->error(__('messages.admin'), 403); 
+        }
         $category = Category::create([
             "title" => $request->title,
         ]);

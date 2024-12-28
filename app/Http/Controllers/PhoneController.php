@@ -16,7 +16,7 @@ class PhoneController extends Controller
      */
     public function index()
     {
-        $phone = Phone::with('user.images','image','category.images','comments')->paginate(10);
+        $phone = Phone::with('user.images','images','category.images','comments')->paginate(10);
         return $this->responsePagination($phone, PhoneResource::collection($phone),__('messages.phone_all'));
     }
 

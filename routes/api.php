@@ -11,15 +11,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
-Route::post('register', [AuthController::class, 'register'])->middleware('language');
-Route::post('login', [AuthController::class, 'login'])->middleware('language');
-Route::get('email-verify', [AuthController::class, 'EmailVerify'])->middleware('language');
+Route::middleware(['language'])->group(function () {
+    Route::post('register', [AuthController::class, 'register']);
+Route::post('login', [AuthController::class, 'login']);
+Route::get('email-verify', [AuthController::class, 'EmailVerify']);
+Route::get('/user', [AuthController::class, 'findUser']);
+Route::apiResource('categories', CategoryController::class);
+});
 Route::middleware(['language','auth:sanctum'])->group(function () {
     Route::get('logout', [AuthController::class, 'logout']);
-    Route::get('/user', [AuthController::class, 'findUser']);
     Route::apiResource('phones',PhoneController::class);
     Route::post('comments',[CommentController::class,'commentstore']);
     Route::delete('comments/{id}',[CommentController::class,'commentdestroy']);
     Route::get('search',[FindController::class,'search']);
 });
-Route::apiResource('categories', CategoryController::class)->middleware('language');

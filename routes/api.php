@@ -14,12 +14,12 @@ Route::get('/user', function (Request $request) {
 Route::post('register', [AuthController::class, 'register'])->middleware('language');
 Route::post('login', [AuthController::class, 'login'])->middleware('language');
 Route::get('email-verify', [AuthController::class, 'EmailVerify'])->middleware('language');
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('logout', [AuthController::class, 'logout'])->middleware('language');
-    Route::get('/user', [AuthController::class, 'findUser'])->middleware('language');
-    Route::apiResource('phones',PhoneController::class)->middleware('language');
-    Route::post('comments',[CommentController::class,'commentstore'])->middleware('language');
-    Route::delete('comments/{id}',[CommentController::class,'commentdestroy'])->middleware('language');
-    Route::get('search',[FindController::class,'search'])->middleware('language');
+Route::middleware(['language','auth:sanctum'])->group(function () {
+    Route::get('logout', [AuthController::class, 'logout']);
+    Route::get('/user', [AuthController::class, 'findUser']);
+    Route::apiResource('phones',PhoneController::class);
+    Route::post('comments',[CommentController::class,'commentstore']);
+    Route::delete('comments/{id}',[CommentController::class,'commentdestroy']);
+    Route::get('search',[FindController::class,'search']);
 });
 Route::apiResource('categories', CategoryController::class)->middleware('language');

@@ -58,15 +58,18 @@ class AuthController extends Controller
 }
    }
    public function logout(Request $request){
+    if (!$request->user() || !$request->user()->currentAccessToken()) {
+        return $this->error(__('messages.logouted'));
+    }
     $request->user()->currentAccessToken()->delete();
-        return $this->success([],__('message.logout'));
-   }
+    return $this->success([], __('messages.logout'));
+}
    public function findUser(Request $request){
-    if($request->user()  !== null){
-    return $this->success([new UserResource( $request->user()->load('images','phones.images'))],__('messages.userFound'));
+    $user = $request->user();
+    if (!$user) {
+        return $this->error(__('messages.userNotFound'), 401);
     }
-    else {
-        return $this->error(__('messages.userNotFound'));
-    }
- }
+
+    return $this->success(new UserResource($user), __('messages.userFound'));
+}
 }

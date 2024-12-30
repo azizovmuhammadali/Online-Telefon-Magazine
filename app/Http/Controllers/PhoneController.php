@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PhoneUpdateRequestRequest;
 use App\Models\Phone;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\PhoneResource;
 use App\Http\Requests\PhoneStoreRequest;
+use App\Http\Requests\PhoneUpdateRequestRequest;
 
 class PhoneController extends Controller
 {

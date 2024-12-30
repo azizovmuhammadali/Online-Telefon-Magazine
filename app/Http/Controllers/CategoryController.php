@@ -16,7 +16,7 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::with('images','phones.images')->paginate(10);
-        return $this->success(CategoryResource::collection($categories), __("messages.category_all"));
+        return $this->responsePagination($categories,CategoryResource::collection($categories), __("messages.category_all"));
     }
 
     /**
@@ -24,7 +24,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryStoreRequest $request)
     {
-        if (!auth()->check() || auth()->user()->status !== 'admin') {
+        if (!auth()->check() || auth()->user()->role !== 'admin') {
             return $this->error(__('messages.admin'), 403); 
         }
         $category = Category::create([
@@ -54,6 +54,9 @@ class CategoryController extends Controller
      */
     public function update(CategoryUpdateRequest $request, string $id)
     {
+        if (!auth()->check() || auth()->user()->role !== 'admin') {
+            return $this->error(__('messages.admin'), 403); 
+        }
         $category = Category::findOrFail($id);
         if ($request->hasFile('image')) {
             if ($category->image) {
@@ -76,6 +79,9 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
+        if (!auth()->check() || auth()->user()->role !== 'admin') {
+            return $this->error(__('messages.admin'), 403); 
+        }
         $category = Category::findOrFail($id);
         $category->delete();
         return $this->success([], __('messages.category_deleted'), 204);

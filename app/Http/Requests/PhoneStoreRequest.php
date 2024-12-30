@@ -24,7 +24,7 @@ class PhoneStoreRequest extends FormRequest
         return [
             'name' => 'required',
             'model'=> 'required',
-            'price'=> 'required|integer',
+            'price'=> 'required',
             'description'=> 'required|string',
         ];
     }

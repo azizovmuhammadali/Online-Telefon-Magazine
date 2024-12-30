@@ -22,10 +22,10 @@ class PhoneUpdateRequestRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'name' => 'required',
-            'model'=> 'required',
-            'price'=> 'required|integer',
-            'description'=> 'required|string',
+           'name' => 'nullable',
+            'model'=> 'nullable',
+            'price'=> 'nullable',
+            'description'=> 'nullable|string',
         ];
     }
 }

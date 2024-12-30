@@ -17,7 +17,7 @@ class CommentController extends Controller
         $comment->save();
         return $this->success(new CommentResource($comment->load('user.images')),__('messages.commented'));
     }
-    public function destroy(string $id)
+    public function commentdestroy(string $id)
     {
         $comment = Comment::findOrFail($id);
         if(Auth::id() !== $comment->user_id){
